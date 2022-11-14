@@ -1,3 +1,5 @@
+#required envs: $dist
+
 install_nginx() {
     set +e
     apt-get install ca-certificates lsb-release -y

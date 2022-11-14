@@ -1,6 +1,6 @@
 
 nginx_config(){
-    colorEcho ${INFO} "Configuring nginx..."
+    color_echo ${INFO} "Configuring nginx..."
     rm -rf /etc/nginx/sites-available/*
     rm -rf /etc/nginx/sites-enabled/*
     touch /etc/nginx/conf.d/verify.conf

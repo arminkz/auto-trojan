@@ -4,7 +4,7 @@ install_acme(){
   set +e
   curl --retry 5 -s https://get.acme.sh | sh
   if [[ ! -f /root/.acme.sh/acme.sh ]]; then
-    colorEcho ${ERROR} "Error on ACME.sh setup."
+    color_echo ${ERROR} "Error on ACME.sh setup."
     exit 1
   fi
   ~/.acme.sh/acme.sh --upgrade --auto-upgrade
@@ -29,7 +29,7 @@ issue_using_dns_api() {
         done
         export CF_Key="$CF_Key"
         export CF_Email="$CF_Email"
-        installacme
+        install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_cf --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
 echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
@@ -41,7 +41,7 @@ rm mycron
         Namesilo_Key=$(whiptail --passwordbox --nocancel "https://www.namesilo.com/account_api.php，Enter your Namesilo_Key" 8 68 --title "Namesilo_Key input" 3>&1 1>&2 2>&3)
         done
         export Namesilo_Key="$Namesilo_Key"
-        installacme
+        install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_namesilo --cert-home /etc/certs --dnssleep 1800 -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
 echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
@@ -55,7 +55,7 @@ rm mycron
         done
         export Ali_Key="$Ali_Key"
         export Ali_Secret="$Ali_Secret"
-        installacme
+        install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_ali --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
 echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
@@ -69,7 +69,7 @@ rm mycron
         done
         export DP_Id="$DP_Id"
         export DP_Key="$DP_Key"
-        installacme
+        install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_dp --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
 echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
@@ -83,7 +83,7 @@ rm mycron
         done
         export CX_Key="$CX_Key"
         export CX_Secret="$CX_Secret"
-        installacme
+        install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_cx --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
 echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
@@ -97,7 +97,7 @@ rm mycron
         done
         export GD_Key="$CX_Key"
         export GD_Secret="$CX_Secret"
-        installacme
+        install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_gd --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
 echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
@@ -111,7 +111,7 @@ rm mycron
         done
         export Namecom_Username="$Namecom_Username"
         export Namecom_Token="$Namecom_Token"
-        installacme
+        install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_namecom --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
 echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
