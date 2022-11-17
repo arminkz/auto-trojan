@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Module Prerequisites
+# $domain must be set
+
 install_acme(){
   set +e
   curl --retry 5 -s https://get.acme.sh | sh
@@ -32,7 +35,7 @@ issue_using_dns_api() {
         install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_cf --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
-echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
+echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx  || true' &> /root/auto-trojan/letcron.log 2>&1" >> mycron
 crontab mycron
 rm mycron
         ;;
@@ -44,7 +47,7 @@ rm mycron
         install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_namesilo --cert-home /etc/certs --dnssleep 1800 -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
-echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
+echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx  || true' &> /root/auto-trojan/letcron.log 2>&1" >> mycron
 crontab mycron
 rm mycron
         ;;
@@ -58,7 +61,7 @@ rm mycron
         install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_ali --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
-echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
+echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx  || true' &> /root/auto-trojan/letcron.log 2>&1" >> mycron
 crontab mycron
 rm mycron
         ;;
@@ -72,7 +75,7 @@ rm mycron
         install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_dp --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
-echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
+echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx  || true' &> /root/auto-trojan/letcron.log 2>&1" >> mycron
 crontab mycron
 rm mycron
         ;;
@@ -86,7 +89,7 @@ rm mycron
         install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_cx --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
-echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
+echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx  || true' &> /root/auto-trojan/letcron.log 2>&1" >> mycron
 crontab mycron
 rm mycron
         ;;
@@ -100,7 +103,7 @@ rm mycron
         install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_gd --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
-echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
+echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx  || true' &> /root/auto-trojan/letcron.log 2>&1" >> mycron
 crontab mycron
 rm mycron
         ;;
@@ -114,7 +117,7 @@ rm mycron
         install_acme
         ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --dns dns_namecom --cert-home /etc/certs -d $domain -k ec-256 --log --reloadcmd "systemctl reload trojan nginx || true"
 crontab -l > mycron
-echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx hysteria || true' &> /root/.trojan/letcron.log 2>&1" >> mycron
+echo "0 0 * * * /root/.acme.sh/acme.sh --server letsencrypt --cron --cert-home /etc/certs --reloadcmd 'systemctl restart trojan nginx  || true' &> /root/auto-trojan/letcron.log 2>&1" >> mycron
 crontab mycron
 rm mycron
         ;;
@@ -127,9 +130,9 @@ rm mycron
     esac
 
     if [[ -f /etc/certs/${domain}_ecc/fullchain.cer ]] && [[ -f /etc/certs/${domain}_ecc/${domain}.key ]]; then
-        colorEcho ${INFO} "Certificate Issue successful."
+        color_echo ${INFO} "Certificate Issue successful."
     else
-        colorEcho ${ERROR} "Certificate Issue using DNS API failed."
+        color_echo ${ERROR} "Certificate Issue using DNS API failed."
         exit 1
     fi
 }
