@@ -1,6 +1,6 @@
+#!/usr/bin/env bash
 
 nginx_config(){
-    color_echo ${INFO} "Configuring nginx..."
     rm -rf /etc/nginx/sites-available/*
     rm -rf /etc/nginx/sites-enabled/*
     touch /etc/nginx/conf.d/verify.conf
@@ -8,7 +8,7 @@ nginx_config(){
 
     cat > '/etc/nginx/conf.d/default.conf' << EOF
 server {
-    #Note that port 443 and SSL handling is done by Trojan-GFW. Nginx is just used for Decoy Website serving.
+    #Note that port 443 and SSL handling is done by Trojan-Go. Nginx is just used for Decoy Website serving.
     #Any non-trojan traffic would be redirected here.
 
     listen 127.0.0.1:81 fastopen=512 default_server so_keepalive=on;
@@ -24,28 +24,36 @@ server {
       root /usr/share/nginx/;
     }
 
-    error_page 497  https://$host$uri?$args; 
+    error_page 497  https://$host$uri?$args;
+
 EOF
+    if [[ $install_sample_html == 1 ]]; then
+        echo "    location / {" >> /etc/nginx/conf.d/default.conf
+        echo "      root /usr/share/nginx/sample/;" >> /etc/nginx/conf.d/default.conf
+        echo "    }" >> /etc/nginx/conf.d/default.conf
+    fi
+
     if [[ $install_hexo == 1 ]]; then
-        echo "  location / {" >> /etc/nginx/conf.d/default.conf
-        echo "    #proxy_pass http://127.0.0.1:4000/; # Hexo server" >> /etc/nginx/conf.d/default.conf
-        echo "    root /usr/share/nginx/hexo/public/; # Hexo public content" >> /etc/nginx/conf.d/default.conf
-        echo "    #error_page 404  /404.html;" >> /etc/nginx/conf.d/default.conf
-        echo "  }" >> /etc/nginx/conf.d/default.conf
+        echo "    location / {" >> /etc/nginx/conf.d/default.conf
+        echo "      #proxy_pass http://127.0.0.1:4000/; # Hexo server" >> /etc/nginx/conf.d/default.conf
+        echo "      root /usr/share/nginx/hexo/public/; # Hexo public content" >> /etc/nginx/conf.d/default.conf
+        echo "      #error_page 404  /404.html;" >> /etc/nginx/conf.d/default.conf
+        echo "    }" >> /etc/nginx/conf.d/default.conf
     fi
 
     if [[ $install_alist == 1 ]]; then
-        echo "  location / {" >> /etc/nginx/conf.d/default.conf
-        echo "    #access_log off;" >> /etc/nginx/conf.d/default.conf
-        echo "    client_max_body_size 0;" >> /etc/nginx/conf.d/default.conf
-        echo "    proxy_set_header X-Forwarded-Proto https;" >> /etc/nginx/conf.d/default.conf
-        echo "    proxy_pass http://127.0.0.1:5244/;" >> /etc/nginx/conf.d/default.conf
-        echo "    proxy_set_header Upgrade \$http_upgrade;" >> /etc/nginx/conf.d/default.conf
-        echo "    proxy_set_header Connection \$http_connection;" >> /etc/nginx/conf.d/default.conf
-        echo "  }" >> /etc/nginx/conf.d/default.conf
+        echo "    location / {" >> /etc/nginx/conf.d/default.conf
+        echo "      #access_log off;" >> /etc/nginx/conf.d/default.conf
+        echo "      client_max_body_size 0;" >> /etc/nginx/conf.d/default.conf
+        echo "      proxy_set_header X-Forwarded-Proto https;" >> /etc/nginx/conf.d/default.conf
+        echo "      proxy_pass http://127.0.0.1:5244/;" >> /etc/nginx/conf.d/default.conf
+        echo "      proxy_set_header Upgrade \$http_upgrade;" >> /etc/nginx/conf.d/default.conf
+        echo "      proxy_set_header Connection \$http_connection;" >> /etc/nginx/conf.d/default.conf
+        echo "    }" >> /etc/nginx/conf.d/default.conf
     fi
 
     #End of 81 and 82 ports
+    echo "" >> /etc/nginx/conf.d/default.conf
     echo "}" >> /etc/nginx/conf.d/default.conf
     echo "" >> /etc/nginx/conf.d/default.conf
 

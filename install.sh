@@ -47,11 +47,14 @@ echo "IP: $my_ip   Local IP: $local_ip"
 echo "IPv6: $my_ipv6"
 echo "Country: $my_country"
 echo "City: $my_city"
-echo ""
+
 
 while [[ -z ${domain} ]]; do
   domain=$(whiptail --inputbox --nocancel "Please enter your domain name: example.com (please complete A/AAAA analysis first)" 8 68 --title "Domain input" 3>&1 1>&2 2>&3)
 done
+
+echo "Domain: $domain"
+echo ""
 
 color_echo ${INFO} "Issuing SSL Certificate..."
 if [[ -f /etc/certs/${domain}_ecc/fullchain.cer ]] && [[ -f /etc/certs/${domain}_ecc/${domain}.key ]]; then
@@ -67,6 +70,8 @@ else
   source certificate.sh
   issue_using_dns_api
 fi
+echo "Fixing permissions on certs..."
+chmod +r /etc/certs/${domain}_ecc/${domain}.key
 echo ""
 
 color_echo ${INFO} "Installing Trojan-Go..."
@@ -76,4 +81,21 @@ password=$(
 )
 source trojan.sh
 install_trojan
+echo ""
+
+dist='ubuntu'
+color_echo ${INFO} "Installing nginx..."
+source nginx.sh
+install_nginx
+echo ""
+
+color_echo ${INFO} "Creating Decoy Website..."
+source decoy.sh
+install_decoy_website
+echo ""
+
+color_echo ${INFO} "Configuring nginx..."
+source nginx-config.sh
+nginx_config
+echo ""
 

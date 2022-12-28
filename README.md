@@ -33,7 +33,7 @@ In some cases, Censors could go beyond Passive methods and probe IPs to check if
 Avoid IP Blocks with CloudFlare CDN
 ---
 
-Censors may try to blacklist your IP in case they realize it is a Trojan server. To avoid IP leakage and also counter blocking by IP, you can configure CloudFlare as a middle proxy. In this scenario if the censors try to block your service, they will have to block the Cloudflare IP which causes too much collateral damage (Many sites use CloudFlare as CDN). To make your server compatible with Cloudflare CDN you may have to enable WebSocket on Trojan Server.
+Censors may try to blacklist your IP in case they realize it is a Trojan server. To avoid IP leakage and also counter blocking by IP, you can configure CloudFlare as a middle proxy. In this scenario if the censors try to block your service, they will have to block the Cloudflare IP which causes too much collateral damage (Many sites use CloudFlare as CDN). To make your server compatible with Cloudflare CDN you might have to enable WebSocket on Trojan Server.
 
 <p align="center">
   <img width="900" src="/../main/doc/cloudflare.png?raw=true"/>

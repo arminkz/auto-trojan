@@ -1,9 +1,13 @@
+#!/usr/bin/env bash
+
 #required envs: $dist
 
 install_nginx() {
     set +e
-    apt-get install ca-certificates lsb-release -y
-    apt-get install gnupg gnupg2 -y
+    echo "Installing nginx dependencies..."
+    apt-get install ca-certificates lsb-release -y -q
+    apt-get install gnupg gnupg2 -y -q
+    echo "Adding nginx repository..."
     touch /etc/apt/sources.list.d/nginx.list
     if [[ ${dist} == ubuntu ]]; then
         echo "deb [arch=amd64] http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx"  | sudo tee /etc/apt/sources.list.d/nginx.list
@@ -47,7 +51,7 @@ WantedBy=multi-user.target
 EOF
     systemctl daemon-reload
     systemctl enable nginx
-    mkdir /usr/share/nginx/cache
+    mkdir /usr/share/nginx/cache &> /dev/null
 
     cat > '/etc/nginx/nginx.conf' << EOF
 user root;
