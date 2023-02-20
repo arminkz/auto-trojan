@@ -48,6 +48,14 @@ echo "IPv6: $my_ipv6"
 echo "Country: $my_country"
 echo "City: $my_city"
 
+color_echo ${INFO} "Downloading Modules..."
+cd /root/auto-trojan/
+wget -q https://raw.githubusercontent.com/arminkz/auto-trojan/main/modules/certificate.sh
+wget -q https://raw.githubusercontent.com/arminkz/auto-trojan/main/modules/trojan.sh
+wget -q https://raw.githubusercontent.com/arminkz/auto-trojan/main/modules/nginx.sh
+wget -q https://raw.githubusercontent.com/arminkz/auto-trojan/main/modules/nginx-config.sh
+wget -q https://raw.githubusercontent.com/arminkz/auto-trojan/main/modules/decoy.sh
+
 
 while [[ -z ${domain} ]]; do
   domain=$(whiptail --inputbox --nocancel "Please enter your domain name: example.com (please complete A/AAAA analysis first)" 8 68 --title "Domain input" 3>&1 1>&2 2>&3)
