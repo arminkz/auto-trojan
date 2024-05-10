@@ -40,6 +40,14 @@ Censors may try to blacklist your IP in case they realize it is a Trojan server.
 </p>
 
 
+Possible Weaknesses with CDN Proxy
+---
+
+Although using CDN will make the server's IP hidden from the adversary, Due to the lack of encryption of SNI in HTTPS protocol, censors can still eavesdrop on the domain name and block the domain name upon suspicious network behavior. (Shame on the engineers who designed SNI!!)
+
+Another thing to keep in mind is to avoid DNS leaks because DNS is also an unencrypted protocol. A possible workaround is to use DNSSEC or DoH (DNS over HTTPS)
+
+
 Installation
 ---
 
